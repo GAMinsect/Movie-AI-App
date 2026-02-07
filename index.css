@@ -1,4 +1,39 @@
-html, body {
+html, body, h1,h2,textarea {
     margin: 0;
     padding: 0;
+}
+body{
+    margin-bottom: 139px;
+}
+header, section, .input-field{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header,section{
+    gap:  46px;
+}
+img{
+    width: 99px;
+}
+
+textarea{
+    width: 70vw;
+    resize: none;
+}
+
+.top{
+    height: 78px;
+}
+.middle{
+    height: 63px;
+}
+.bottom{
+    height: 64px;
+}
+
+button{
+    width: 70vw;
+    height: 71px;
 }
