@@ -3,12 +3,23 @@ import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({apiKey: process.env.GEMINI_KEY});
 const btn = document.getElementById('btn')
+const basic_instruction = `
+  You are an expert in movies and you are giving reccomendation to the user about which movie to watch a Friday night with its friend. When responding don't use any bold or capitalization
+`
+
+let currentState = true
 
 // take the user input on the various field and parse it
 async function parser(){
-    const txt1 = 'interstellar for its good story' //document.getElementById('favourite-movie')
-    const txt2 = 'something classic' //document.getElementById('mood-movie').value
-    const txt3 = 'i want to have funn' //document.getElementById('fun-serious-movie').value
+    
+    if (!currentState){
+      changeLayout("",currentState)
+      return
+    }
+    
+    const txt1 = document.getElementById('favourite-movie')
+    const txt2 = document.getElementById('mood-movie').value
+    const txt3 = document.getElementById('fun-serious-movie').value
     
     const embedded = await ai.models.embedContent({
         model: 'gemini-embedding-001',
@@ -22,7 +33,7 @@ async function parser(){
 async function findNearestMatch(embedding) {
   const { data, error } = await supabase.rpc('match_movies', {
     query_embedding: embedding,
-    match_threshold: 0.00,
+    match_threshold: 0.50,
     match_count: 1
   });
 
@@ -31,10 +42,43 @@ async function findNearestMatch(embedding) {
     return;
   }
   
-  console.log("Matched Movie:", data);
+  await giveReccomendation(data[0])
+  // [{id: 83, title: 'Oppenheimer', releaseYear: 2023, similarity: 0.584346676805823}]
 }
 
 
 // Give the updated context to Gemini
+async function giveReccomendation(movie){
+  const response = await ai.models.generateContent({
+    model: "gemini-3-flash-preview",
+    contents: [basic_instruction,`Generate a concise description of not more than 3 lines or 40 words ${movie.title} outlining its strengths`],
+    config: {
+      temperature: 0.1,
+    },
+  });
+  console.log(response.text,movie)
+  changeLayout(response.text,currentState)
+}
+
+function changeLayout(txt,state){
+  document.getElementById('response').innerHTML = `<h1>${txt}</h1>`
+  document.getElementById('response').classList.toggle('hide')
+  
+  if (state){
+    document.getElementById('one').style.display = 'none'
+    document.getElementById('two').style.display = 'none'
+    document.getElementById('three').style.display = 'none'
+    btn.innerText = 'Go Again'
+  }
+  else{
+    document.getElementById('one').style.display = 'flex'
+    document.getElementById('two').style.display = 'flex'
+    document.getElementById('three').style.display = 'flex'
+    btn.innerText = 'Lets go'
+  }
+  
+  state = !state
+  
+}
 
 btn.addEventListener('click',async () => await parser())

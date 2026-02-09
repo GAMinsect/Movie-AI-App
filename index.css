@@ -37,3 +37,7 @@ button{
     width: 70vw;
     height: 71px;
 }
+
+hide{
+    display: none;
+}
