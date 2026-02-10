@@ -58,6 +58,9 @@ async function giveReccomendation(movie){
           temperature: 0.1,
         },
       }); 
+      
+      changeLayout(response.text,movie)
+      
   }
   catch(e){
     changeLayout("Oppenheimer for its splendid dialogue Oppenheimer for its splendid dialogue Oppenheimer for its splendid dialogue",{title:"Oppenheimer",releaseYear:"2024"}) 

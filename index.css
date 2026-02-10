@@ -1,6 +1,7 @@
 html, body, h1,h2,textarea {
     margin: 0;
     padding: 0;
+    font-family: "Roboto Slab", 'sans-serif';
 }
 body{
     margin-bottom: 139px;
@@ -17,6 +18,7 @@ header h1{
     font-size: 2.8125rem;
     padding: 1rem 0.5rem;
     padding-bottom: 2.25rem;
+    font-family: "Carter One", 'sans-serif';
 }
 
 img{
