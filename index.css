@@ -4,6 +4,8 @@ html, body, h1,h2,textarea {
 }
 body{
     margin-bottom: 139px;
+    background-color: rgba(0, 12, 54, 1);
+    color: rgba(255, 255, 255, 1);
 }
 header, section, .input-field{
     display: flex;
@@ -11,16 +13,46 @@ header, section, .input-field{
     align-items: center;
 }
 
-header,section{
-    gap:  46px;
+header h1{
+    font-size: 2.8125rem;
+    padding: 1rem 0.5rem;
+    padding-bottom: 2.25rem;
 }
+
 img{
     width: 99px;
+    margin-top: 50px;
 }
+
+
+section{
+    gap: 36px;
+}
+
+
 
 textarea{
     width: 70vw;
     resize: none;
+    border-radius: 10px;
+    background-color: rgba(59, 72, 119, 1);
+    font-size: 0.875rem;
+    line-height: 1;
+    color: white;
+    font-weight: 00;
+    border: none;
+    padding: 0.56rem 0.6875rem;
+}
+
+::placeholder{
+    color: rgba(5, 6, 12, 1);
+}
+
+h2{
+    font-size: 1rem;
+    line-height: 1;
+    font-weight: 400;
+    padding-bottom: 0.5rem;
 }
 
 .top{
@@ -33,9 +65,30 @@ textarea{
     height: 64px;
 }
 
+button, .response h1{
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
 button{
     width: 70vw;
     height: 71px;
+    background-color: rgba(81, 224, 138, 1);
+    border: none;
+    border-radius: 10px;
+    color: rgba(0, 12, 54, 1);
+}
+
+.response{
+    width: 70vw;
+}
+
+.response h2{
+    font-weight: 400;
+    font-size: 1.125rem;
+    margin-top: 1.3125rem;
+    line-height: 1;
 }
 
 hide{
