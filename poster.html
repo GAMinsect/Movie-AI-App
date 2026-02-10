@@ -14,17 +14,25 @@
     <body>
         <header>
             <img src="./images/popcorn.png">
-            <h1>PopChoice</h1>
         </header>
         <section>
             <div id="one" class="input-field">
-                <textarea id="num-people" class="top" placeholder="How many people"></textarea>
+                <h2>What’s your favorite movie and why?</h2>
+                <textarea id="favourite-movie" class="top" placeholder="Oppenheimer for its splendid dialogue"></textarea>
             </div>
             <div id="two" class="input-field">
-                <textarea id="time"  class="middle" placeholder="How much time do you have"></textarea>
+                <h2>Are you in the mood for something new or a classic?</h2>
+                <textarea id="mood-movie"  class="middle" placeholder="I'm the mood for something new"></textarea>
             </div>
-            <button id="btn">Start</button>
+            <div id="three" class="input-field">
+                <h2>Do you wanna have fun or do you want something serious?</h2>
+                <textarea id="fun-serious-movie" class="top" placeholder="I would like to watch a movie that makes me laugh"></textarea>
+            </div>
+            
+            <div id ="response" class="response hide">
+            </div>
+            <button id="btn">Let's go</button>
         </section>
-        <script type="module" src="index.js"></script>
+        <script type="module" src="questions.js"></script>
     </body>
 </html> 
