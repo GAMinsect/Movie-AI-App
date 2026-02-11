@@ -4,9 +4,7 @@ import { GoogleGenAI } from "@google/genai";
 const ai = new GoogleGenAI({apiKey: process.env.GEMINI_KEY});
 const h1 = document.getElementById('user')
 const btn = document.getElementById('btn')
-const basic_instruction = `
-  You are an expert in movies and you are giving reccomendation to the user about which movie to watch a Friday night with its friend. When responding don't use any bold or capitalization
-`
+
 const chosenMovies = new Map()
 
 //
@@ -44,19 +42,6 @@ function render(){
 
 // --- Store Data Logic ---
 function storeUserData(){
-  
-  // To be given to the AI
-  localStorage.setItem(`user${user}`,
-    `
-      What’s your favorite movie and why? 
-      ${document.getElementById('favourite-movie').value}
-      Are you in the mood for something new or a classic?
-      ${document.querySelectorAll('input:checked')[0].value}
-      What are you in the mood for?
-      ${document.querySelectorAll('input:checked')[1].value}
-      Which famous film person would you love to be stranded on an island with and why?
-      ${document.getElementById('famous-film').value}
-    `)
   
   // To be Parsed
   localStorage.setItem(`user${user}data`, 
@@ -109,29 +94,6 @@ async function findNearestMatch(embedding) {
     return;
   }
   return data[0]
-  await giveReccomendation(data[0])
-  // [{id: 83, title: 'Oppenheimer', releaseYear: 2023, similarity: 0.584346676805823}]
-}
-
-
-// Give the updated context to Gemini
-async function giveReccomendation(movie){
-  
-  try{
-      const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: [basic_instruction,`Generate a concise description of not more than 3 lines or 40 words ${movie.title} outlining its strengths`],
-        config: {
-          temperature: 0.1,
-        },
-      }); 
-      
-      changeLayout(response.text,movie)
-      
-  }
-  catch(e){
-    changeLayout("Oppenheimer for its splendid dialogue Oppenheimer for its splendid dialogue Oppenheimer for its splendid dialogue",{title:"Oppenheimer",releaseYear:"2024"}) 
-  }
 }
 
 /*
