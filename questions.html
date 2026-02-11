@@ -23,18 +23,34 @@
             </div>
             <div id="two" class="input-field">
                 <h2>Are you in the mood for something new or a classic?</h2>
-                <label for="new">New</label>
-                <input id="new" type="radio" value="New" name="mood">
-                <label for="classic">Classic</label>
-                <input id="classic" type="radio" value="Classic" name="mood">
+                <div class="mood">
+                    <label id="new-label" class="mood-input" for="new">New</label>
+                    <input id="new" type="radio" value="New" name="mood">
+                    
+                    <label id="classic-label" class="mood-input" for="classic">Classic</label>
+                    <input id="classic" type="radio" value="Classic" name="mood">
+                </div>
             </div>
             <div id="three" class="input-field">
-                <h2>Do you wanna have fun or do you want something serious?</h2>
-                <textarea id="fun-serious-movie" class="top" placeholder="I would like to watch a movie that makes me laugh"></textarea>
+                <h2>What are you in the mood for</h2>
+                
+                <div class="mood">
+                    <label id="fun-label" class="mood-input" for="fun">Fun</label>
+                    <input id="fun" type="radio" value="Fun" name="emotion">
+                    
+                    <label id="serious-label" class="mood-input" for="serious">Serious</label>
+                    <input id="serious" type="radio" value="Serious" name="emotion">
+                    
+                    <label id="inspiring-label" class="mood-input" for="inspiring">Inspiring</label>
+                    <input id="inspiring" type="radio" value="Inspiring" name="emotion">
+                    
+                    <label id="scary-label" class="mood-input" for="scary">Scary</label>
+                    <input id="scary" type="radio" value="Scary" name="emotion">
+                </div>
             </div>
             <div id="four" class="input-field">
                 <h2>Which famous film person would you love to be stranded on an island with and why?</h2>
-                <textarea id="fun-serious-movie" class="top" placeholder="Tom Hanks because he is really funny and can do the voice of Woody"></textarea>
+                <textarea id="famous-film" class="top" placeholder="Tom Hanks because he is really funny and can do the voice of Woody"></textarea>
             </div>
             <div id ="response" class="response hide">
             </div>

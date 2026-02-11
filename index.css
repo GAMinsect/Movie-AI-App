@@ -31,7 +31,23 @@ section{
     gap: 36px;
 }
 
+.mood{
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
 
+
+.mood-input{
+    background-color: rgba(59, 72, 119, 1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+}
+
+.selected{
+    background-color: rgba(81, 224, 138, 1);
+    color: rgba(0, 12, 54, 1)
+}
 
 textarea{
     width: 70vw;
@@ -95,4 +111,12 @@ button{
 
 hide{
     display: none;
+}
+
+input[type=radio]{
+    display: none;
+}
+
+input:checked{
+    color: aqua;
 }
