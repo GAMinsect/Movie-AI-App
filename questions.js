@@ -96,33 +96,13 @@ async function findNearestMatch(embedding) {
   return data[0]
 }
 
-/*
-function changeLayout(txt,movie = {title:"",releaseYear: "" }){
-  movie.releaseYear = movie.releaseYear.length ? `(${movie.releaseYear})` : ""
-  document.getElementById('response').innerHTML = `<h1>${movie.title} ${movie.releaseYear}</h1><h2>${txt}</h2>`
-  document.getElementById('response').classList.toggle('hide')
-  
-  if (currentState){
-    document.getElementById('one').style.display = 'none'
-    document.getElementById('two').style.display = 'none'
-    document.getElementById('three').style.display = 'none'
-    btn.innerText = 'Go Again'
-  }
-  else{
-    document.getElementById('one').style.display = 'flex'
-    document.getElementById('two').style.display = 'flex'
-    document.getElementById('three').style.display = 'flex'
-    btn.innerText = 'Lets go'
-  }
-  
-  currentState = !currentState
-}
-*/
+
 console.log(localStorage.getItem('numPeople'),localStorage.getItem('time'))
 
 // --- Click Logic ---
 document.addEventListener('click',async (e)=>{
   if(e.target.id=="btn"){
+    console.log("Button Clicked")
     storeUserData()
     if (user==tot_user){
         await parser()
