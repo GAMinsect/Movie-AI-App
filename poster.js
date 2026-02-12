@@ -1,4 +1,3 @@
-import { openai, supabase } from './config.js';
 import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({apiKey: process.env.GEMINI_KEY});
@@ -23,11 +22,8 @@ async function generateDescription(movie){
   
   if (step==chosenMovies.length - 1)
       btn.innerText = 'Restart'
-  
-  
   try{
-      console.log(movie, "Start to generate content")
-      /*
+      
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: [basic_instruction,`Generate a concise description of not more than 3 lines or 40 words of ${movie[0]} outlining its strengths`],
@@ -35,12 +31,9 @@ async function generateDescription(movie){
           temperature: 0.1,
         },
       }); 
-      console.log(movie, "Ending generating content")
-      */
-      let response = {text: "Description of the movie"}
+    
       await changeLayout(response.text,movie)
-      
-      
+         
   }
   catch(e){
     console.log(e)
@@ -49,30 +42,27 @@ async function generateDescription(movie){
 
 // Function to change the layout of the page to show the reccomended movie
 async function changeLayout(desc,mv){
-    console.log(mv,step)
+    
     title.innerText = `${mv[0]} (${mv[1]})`
     
     // Do Poster APi
-    console.log("Start Poster API")
-    
     fetch(baseUrl+`&t=${mv[0]}`)
-      .then(el => el.json())
-      .then(el => {
-        console.log(el)
-        poster.src = el.Poster
-        })
-    
-    console.log("Ended Poster API")
+    .then(el => el.json())
+    .then(el => {
+      console.log(el)
+      poster.src = el.Response == 'False'? '/images/IMAGE_NOT_FOUND.png' : el.Poster
+      console.log(poster.src)
+      }) 
     
     description.innerText = desc
 }   
 
 btn.addEventListener('click',async ()=>{
-    console.log("clicked")
+
     await generateDescription(chosenMovies[step])
     step ++
     
-    if (step == chosenMovies.length){
+    if (step > chosenMovies.length){
       localStorage.clear()
       location.href = 'index.html'
     }

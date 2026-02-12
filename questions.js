@@ -1,4 +1,4 @@
-import { openai, supabase } from './config.js';
+import { supabase } from './config.js';
 import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({apiKey: process.env.GEMINI_KEY});
@@ -7,12 +7,9 @@ const btn = document.getElementById('btn')
 
 const chosenMovies = new Map()
 
-//
-//localStorage.clear()
 
 //state handler
 let user = 0
-let currentState = true
 const tot_user = localStorage.getItem('numPeople')
 
 
@@ -32,12 +29,10 @@ function updateMoodLook(){
 
 function render(){
     // Render the changes of the page
-    console.log("render")
     user ++
     h1.innerText = `${user}`
     if (user==tot_user)
         btn.innerText = 'Get Movie'
-    
 }
 
 // --- Store Data Logic ---
@@ -58,8 +53,7 @@ function storeUserData(){
 // --Parsing logic-- take the users inputs from local storage and parse it
 
 async function parser(){
-    console.log("parser")
-    
+  
     // Iterate each user data and embed it
     for (let i=1; i<=tot_user; i++)
     {
@@ -77,12 +71,11 @@ async function parser(){
     
     // Store each value of the map in localstorage to be used by poster.html
     localStorage.setItem('chosenMovies',JSON.stringify(Array.from(chosenMovies.entries())))
-    console.log(localStorage.chosenMovies)
 }
 
 // find the nearest matches and return the first
 async function findNearestMatch(embedding) {
-  console.log("findnearestmatch")
+  
   const { data, error } = await supabase.rpc('match_movies', {
     query_embedding: embedding,
     match_threshold: 0.50,
@@ -96,13 +89,12 @@ async function findNearestMatch(embedding) {
   return data[0]
 }
 
-console.log(localStorage.getItem('numPeople'),localStorage.getItem('time'))
-
 // --- Click Logic ---
 document.addEventListener('click',async (e)=>{
   if(e.target.id=="btn"){
     storeUserData()
     if (user==tot_user){
+        document.body.innerHTML = '<div class="loader"></div>'
         await parser()
         location.href = 'poster.html'
     }

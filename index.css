@@ -128,8 +128,42 @@ input:checked{
 }
 #description{
     margin: 0px;
+    text-align: center;
+    width: 70vw;
 }
 
 #title{
     margin-top: 32px;
+}
+
+
+
+
+/* Animation */
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50vw;
+  height: 50vh;
+  margin: auto;
+  margin-top: 25vh;
+  aspect-ratio: 1;
+  --c: linear-gradient(#ffffff 0 0);
+  --r1: radial-gradient(farthest-side at bottom,#ffffff 93%,#ffffff00);
+  --r2: radial-gradient(farthest-side at top   ,#ffffff 93%,#ffffff00);
+  background: 
+    var(--c) ,var(--r1),var(--r2),
+    var(--c) ,var(--r1),var(--r2),
+    var(--c) ,var(--r1),var(--r2);
+  background-repeat: no-repeat;
+  animation: l1 1s infinite alternate;
+}
+@keyframes l1 {
+  0%,10% {
+    background-size: 8px 0,8px 4px,8px 4px;
+    background-position: 0 50%,0 calc(50% - 2px),0 calc(50% + 2px),50% 50%,50% calc(50% - 2px),50% calc(50% + 2px),100% 50%,100% calc(50% - 2px),100% calc(50% + 2px);
+ }
+ 90%,100% {
+    background-size: 80px 100%,80px 4px, 80px 4px;
+    background-position: 0 50%,0 -2px,0 calc(100% + 2px),50% 50%,50% -2px,50% calc(100% + 2px),100% 50%,100% -2px,100% calc(100% + 2px);
+ }
 }
