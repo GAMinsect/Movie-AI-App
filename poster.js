@@ -1,0 +1,73 @@
+import { GoogleGenAI } from "@google/genai";
+
+const ai = new GoogleGenAI({apiKey: process.env.GEMINI_KEY});
+const chosenMovies = [...new Map(JSON.parse(localStorage.getItem('chosenMovies'))).entries()]
+let step = 0 //At which movie we are ( 0-indexed )
+const basic_instruction = `
+  You are an expert in movies and you are giving reccomendation to the user about which movie to watch a Friday night with its friend. When responding don't use any bold or capitalization
+`
+let title = document.getElementById('title')
+let poster = document.getElementById('poster')
+let description = document.getElementById('description')
+const btn = document.getElementById('btn')
+const baseUrl = `https://www.omdbapi.com/?apikey=${process.env.OMDb_KEY}`  
+
+// For each chosenMovies generate a description using AI
+// Then Render the page
+// When next is pressed go to the next page
+// After all recomendations have been made clear localstorage and return to the home page
+
+// Give the movies to the AI for it to generate a Description
+async function generateDescription(movie){
+  
+  if (step==chosenMovies.length - 1)
+      btn.innerText = 'Restart'
+  try{
+      
+      const response = await ai.models.generateContent({
+        model: "gemini-3-flash-preview",
+        contents: [basic_instruction,`Generate a concise description of not more than 3 lines or 40 words of ${movie[0]} outlining its strengths`],
+        config: {
+          temperature: 0.1,
+        },
+      }); 
+    
+      await changeLayout(response.text,movie)
+         
+  }
+  catch(e){
+    console.log(e)
+  }
+}
+
+// Function to change the layout of the page to show the reccomended movie
+async function changeLayout(desc,mv){
+    
+    title.innerText = `${mv[0]} (${mv[1]})`
+    
+    // Do Poster APi
+    fetch(baseUrl+`&t=${mv[0]}`)
+    .then(el => el.json())
+    .then(el => {
+      console.log(el)
+      poster.src = el.Response == 'False'? '/images/IMAGE_NOT_FOUND.png' : el.Poster
+      console.log(poster.src)
+      }) 
+    
+    description.innerText = desc
+}   
+
+btn.addEventListener('click',async ()=>{
+
+    await generateDescription(chosenMovies[step])
+    step ++
+    
+    if (step > chosenMovies.length){
+      localStorage.clear()
+      location.href = 'index.html'
+    }
+})
+
+// Generate the first time
+await generateDescription(chosenMovies[step])
+step ++

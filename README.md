@@ -1,3 +1,12 @@
+# Introduction
+This web app uses AI combined with users input to generate recommendation regarding what movie you might want to watch with your friends a Friday night.
+
+This project is made to be deployed on [Scrimba](https://scrimba.com) development enviroment.
+To make this project run you'll need env variable for Gemini API, Subapase (where we store the movie data) and [OMDb API](https://www.omdbapi.com/).
+For information on how to setup you enviroment on Scrimba [click here](https://different-marmoset-f7b.notion.site/Using-environment-variables-in-Scrimba-f8edc638005a4e97b557c6ab1752248a)
+
+
+
 # Getting Started
 Install the dependencies and run the project
 ```

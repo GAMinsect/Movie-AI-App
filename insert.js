@@ -17,7 +17,6 @@ async function splitData(source){
         chunkOverlap: 15,
     })
     
-    console.log(source)
     const texts = await splitter.createDocuments([source])
     
     return texts
@@ -30,10 +29,8 @@ async function createAndStoreEmbeddings(file) {
   await Promise.all(
     file.map( async (movie)=>{
       
-      
       // split each content
       let splitted = await splitData(movie.content)
-      
       
       await Promise.all(
         splitted.map( async (chunk) => {
@@ -51,8 +48,7 @@ async function createAndStoreEmbeddings(file) {
             content: chunk.pageContent,
             embedding: response.embeddings[0].values
           }
-          console.log("DD",data)
-          
+      
           //Add it to supabase
           await supabase.from('movies').insert(data)
         })
