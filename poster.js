@@ -11,8 +11,7 @@ let title = document.getElementById('title')
 let poster = document.getElementById('poster')
 let description = document.getElementById('description')
 const btn = document.getElementById('btn')
-
-// localStorage.clear()
+const baseUrl = `https://www.omdbapi.com/?apikey=${process.env.OMDb_KEY}`  
 
 // For each chosenMovies generate a description using AI
 // Then Render the page
@@ -22,14 +21,13 @@ const btn = document.getElementById('btn')
 // Give the movies to the AI for it to generate a Description
 async function generateDescription(movie){
   
-    if (step==chosenMovies.length){
-        btn.innerText = 'Restart'
-        localStorage.clear()
-        location.href = 'index.html'
-    }
+  if (step==chosenMovies.length - 1)
+      btn.innerText = 'Restart'
+  
   
   try{
-      console.log(movie)
+      console.log(movie, "Start to generate content")
+      /*
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: [basic_instruction,`Generate a concise description of not more than 3 lines or 40 words of ${movie[0]} outlining its strengths`],
@@ -37,7 +35,9 @@ async function generateDescription(movie){
           temperature: 0.1,
         },
       }); 
-      
+      console.log(movie, "Ending generating content")
+      */
+      let response = {text: "Description of the movie"}
       await changeLayout(response.text,movie)
       
       
@@ -51,13 +51,31 @@ async function generateDescription(movie){
 async function changeLayout(desc,mv){
     console.log(mv,step)
     title.innerText = `${mv[0]} (${mv[1]})`
+    
     // Do Poster APi
+    console.log("Start Poster API")
+    
+    fetch(baseUrl+`&t=${mv[0]}`)
+      .then(el => el.json())
+      .then(el => {
+        console.log(el)
+        poster.src = el.Poster
+        })
+    
+    console.log("Ended Poster API")
+    
     description.innerText = desc
 }   
 
 btn.addEventListener('click',async ()=>{
+    console.log("clicked")
     await generateDescription(chosenMovies[step])
     step ++
+    
+    if (step == chosenMovies.length){
+      localStorage.clear()
+      location.href = 'index.html'
+    }
 })
 
 // Generate the first time

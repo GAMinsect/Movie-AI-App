@@ -96,13 +96,11 @@ async function findNearestMatch(embedding) {
   return data[0]
 }
 
-
 console.log(localStorage.getItem('numPeople'),localStorage.getItem('time'))
 
 // --- Click Logic ---
 document.addEventListener('click',async (e)=>{
   if(e.target.id=="btn"){
-    console.log("Button Clicked")
     storeUserData()
     if (user==tot_user){
         await parser()

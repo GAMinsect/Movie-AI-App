@@ -120,3 +120,16 @@ input[type=radio]{
 input:checked{
     color: aqua;
 }
+
+
+#poster{
+    width: 50vw;
+    margin: 0px;
+}
+#description{
+    margin: 0px;
+}
+
+#title{
+    margin-top: 32px;
+}
